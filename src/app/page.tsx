@@ -83,21 +83,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-          <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
-            <Button className="bg-black border border-white text-white hover:bg-white hover:text-black">Instagram</Button>
-          </Link>
-          <Link href="https://wa.me/5511990111822" target="_blank">
-            <Button className="bg-black border border-white text-white hover:bg-white hover:text-black">WhatsApp</Button>
-          </Link>
-          <input
-            type="text"
-            placeholder="Busque um produto..."
-            className="border p-2 rounded-lg w-full max-w-md text-black"
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Busque um produto..."
+          className="border p-2 rounded-lg w-full max-w-md text-black mb-8 block mx-auto"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {produtosFiltrados.map((produto) => (
@@ -125,6 +117,15 @@ export default function Home() {
               </Card>
             </motion.div>
           ))}
+        </div>
+
+        <div className="flex justify-center items-center gap-4 mt-12">
+          <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
+            <Button className="bg-white text-black border border-white hover:bg-gray-300 hover:text-black px-6 py-2">Instagram</Button>
+          </Link>
+          <Link href="https://wa.me/5511990111822" target="_blank">
+            <Button className="bg-white text-black border border-white hover:bg-gray-300 hover:text-black px-6 py-2">WhatsApp</Button>
+          </Link>
         </div>
 
         {carrinho.length > 0 && (
