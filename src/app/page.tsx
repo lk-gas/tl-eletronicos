@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Produto {
   id: number;
@@ -79,9 +80,11 @@ export default function Home() {
           >
             <Card className="rounded-2xl shadow-md hover:shadow-lg">
               <CardContent className="flex flex-col items-center p-4">
-                <img
+                <Image
                   src={produto.imagem}
                   alt={produto.nome}
+                  width={160}
+                  height={160}
                   className="h-40 object-contain mb-4"
                 />
                 <h2 className="text-xl font-semibold mb-2 text-center">{produto.nome}</h2>
