@@ -22,31 +22,36 @@ const produtos = [
 ];
 
 export default function ProdutoPage() {
-  const params = useParams();
-  const id = Number(params.id);
-  const produto = produtos.find(p => p.id === id);
+  const { id } = useParams();
+  const produto = produtos.find((p) => p.id === Number(id));
 
   if (!produto) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-6">
-        <h1 className="text-2xl font-bold">Produto não encontrado</h1>
-        <Link href="/" className="mt-4 text-blue-400 underline">Voltar para Home</Link>
+      <div className="flex items-center justify-center min-h-screen bg-black text-white">
+        Produto não encontrado
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-6">
-      <Image
-        src={produto.imagem}
-        alt={produto.nome}
-        width={200}
-        height={200}
-        className="mb-4"
-      />
-      <h1 className="text-3xl font-bold mb-2">{produto.nome}</h1>
-      <p className="text-xl mb-4">{produto.preco}</p>
-      <Link href="/" className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">Voltar</Link>
+    <div className="min-h-screen bg-black text-white p-8">
+      <Link href="/" className="text-white underline mb-6 inline-block">← Voltar</Link>
+
+      <div className="flex flex-col items-center justify-center mt-10">
+        <Image
+          src={produto.imagem}
+          alt={produto.nome}
+          width={300}
+          height={300}
+          className="rounded-xl mb-6"
+        />
+        <h1 className="text-3xl font-bold mb-4">{produto.nome}</h1>
+        <p className="text-2xl mb-6">{produto.preco}</p>
+
+        <button className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">
+          Adicionar ao Carrinho
+        </button>
+      </div>
     </div>
   );
 }
