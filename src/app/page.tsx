@@ -58,12 +58,12 @@ export default function Home() {
         <title>TL Eletrônicos</title>
       </Head>
 
-      <div className="min-h-screen bg-white p-6">
+      <div className="min-h-screen bg-black text-white p-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-6xl font-extrabold text-center text-black mb-8"
+          className="text-6xl font-extrabold text-center mb-8"
         >
           TL Eletrônicos
         </motion.h1>
@@ -83,12 +83,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center mb-8 gap-4">
+        <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
           <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
-            <Button>Instagram</Button>
+            <Button className="bg-black border border-white text-white hover:bg-white hover:text-black">Instagram</Button>
           </Link>
           <Link href="https://wa.me/5511990111822" target="_blank">
-            <Button>WhatsApp</Button>
+            <Button className="bg-black border border-white text-white hover:bg-white hover:text-black">WhatsApp</Button>
           </Link>
           <input
             type="text"
@@ -109,7 +109,7 @@ export default function Home() {
               onClick={() => router.push(`/produto/${produto.id}`)}
               className="cursor-pointer"
             >
-              <Card className="rounded-2xl shadow-md hover:shadow-lg">
+              <Card className="rounded-2xl shadow-md hover:shadow-lg bg-black border border-white">
                 <CardContent className="flex flex-col items-center p-4">
                   <Image
                     src={produto.imagem}
@@ -118,9 +118,9 @@ export default function Home() {
                     height={160}
                     className="h-40 object-contain mb-4"
                   />
-                  <h2 className="text-xl font-semibold mb-2 text-center text-black">{produto.nome}</h2>
-                  <p className="text-lg mb-4 text-black">{produto.preco}</p>
-                  <Button onClick={(e) => { e.stopPropagation(); adicionarCarrinho(produto); }}>Adicionar ao Carrinho</Button>
+                  <h2 className="text-xl font-semibold mb-2 text-center">{produto.nome}</h2>
+                  <p className="text-lg mb-4">{produto.preco}</p>
+                  <Button onClick={(e) => { e.stopPropagation(); adicionarCarrinho(produto); }} className="bg-white text-black hover:bg-gray-300">Adicionar ao Carrinho</Button>
                 </CardContent>
               </Card>
             </motion.div>
@@ -128,7 +128,7 @@ export default function Home() {
         </div>
 
         {carrinho.length > 0 && (
-          <div className="fixed bottom-4 right-4 p-4 bg-black text-white rounded-2xl shadow-lg w-64">
+          <div className="fixed top-4 right-4 p-4 bg-black text-white rounded-2xl shadow-lg w-64 border border-white">
             <h2 className="text-lg font-semibold mb-2">Carrinho ({carrinho.length})</h2>
             <ul>
               {carrinho.map((item, index) => (
