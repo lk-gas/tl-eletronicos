@@ -119,13 +119,20 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="flex justify-center items-center gap-4 mt-12">
-          <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
-            <Button className="bg-white text-black border border-white hover:bg-gray-300 hover:text-black px-6 py-2">Instagram</Button>
-          </Link>
-          <Link href="https://wa.me/5511990111822" target="_blank">
-            <Button className="bg-white text-black border border-white hover:bg-gray-300 hover:text-black px-6 py-2">WhatsApp</Button>
-          </Link>
+        <div className="text-center mt-16">
+          <h2 className="text-2xl font-semibold mb-4">Nos siga em nossas redes sociais</h2>
+          <div className="flex justify-center gap-6">
+            <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
+              <Button className="bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-8 py-3 rounded-full hover:opacity-80">
+                Instagram
+              </Button>
+            </Link>
+            <Link href="https://wa.me/5511990111822" target="_blank">
+              <Button className="bg-green-500 text-white px-8 py-3 rounded-full hover:bg-green-400">
+                WhatsApp
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {carrinho.length > 0 && (
