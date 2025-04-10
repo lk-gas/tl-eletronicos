@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -30,27 +30,27 @@ const produtos: Produto[] = [
 ];
 
 export default function ProdutoPage() {
-  const { id } = useParams();
-  const produto = produtos.find((p) => p.id === Number(id));
+  const params = useParams();
+  const router = useRouter();
+  const id = Number(params.id);
+  const produto = produtos.find((p) => p.id === id);
 
   if (!produto) {
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">Produto não encontrado</h1>
-        <Link href="/" className="mt-4 text-blue-400 underline">Voltar para o início</Link>
+        <h1 className="text-4xl font-bold mb-4">Produto não encontrado</h1>
+        <button onClick={() => router.push('/')} className="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-300">Voltar para Início</button>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center">
-      <Image src={produto.imagem} alt={produto.nome} width={300} height={300} className="rounded-lg mb-6" />
-      <h1 className="text-4xl font-bold mb-2">{produto.nome}</h1>
-      <p className="text-2xl text-gray-300 mb-4">{produto.preco}</p>
-      <p className="max-w-xl text-center mb-8">{produto.descricao}</p>
-      <Link href="/" className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-300">
-        Voltar para o Início
-      </Link>
+      <Image src={produto.imagem} alt={produto.nome} width={300} height={300} className="rounded-2xl mb-6" />
+      <h1 className="text-4xl font-bold mb-4 text-center">{produto.nome}</h1>
+      <p className="text-2xl mb-2">{produto.preco}</p>
+      <p className="text-lg mb-8 text-center max-w-xl">{produto.descricao}</p>
+      <button onClick={() => router.push('/')} className="bg-white text-black px-8 py-3 rounded-full hover:bg-gray-300">Voltar para Início</button>
     </div>
   );
 }
