@@ -1,11 +1,13 @@
 'use client';
 
+import Head from "next/head";
 import React, { useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Produto {
   id: number;
@@ -15,6 +17,7 @@ interface Produto {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [carrinho, setCarrinho] = useState<Produto[]>([]);
   const [busca, setBusca] = useState("");
 
@@ -39,73 +42,110 @@ export default function Home() {
     setCarrinho([...carrinho, produto]);
   };
 
+  const removerDoCarrinho = (index: number) => {
+    const novoCarrinho = [...carrinho];
+    novoCarrinho.splice(index, 1);
+    setCarrinho(novoCarrinho);
+  };
+
   const produtosFiltrados = produtos.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
-    <div className="min-h-screen bg-white p-6">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-6 text-center"
-      >
-        TL Eletrônicos
-      </motion.h1>
+    <>
+      <Head>
+        <title>TL Eletrônicos</title>
+      </Head>
 
-      <div className="flex flex-wrap justify-center mb-8 gap-4">
-        <input
-          type="text"
-          placeholder="Busque um produto..."
-          className="border p-2 rounded-lg w-full max-w-md"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-        <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
-          <Button>Nosso Instagram</Button>
-        </Link>
-        <Link href="https://wa.me/5599999999999" target="_blank">
-          <Button>Fale no WhatsApp</Button>
-        </Link>
-      </div>
+      <div className="min-h-screen bg-white p-6">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-6xl font-extrabold text-center text-black mb-8"
+        >
+          TL Eletrônicos
+        </motion.h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {produtosFiltrados.map((produto) => (
-          <motion.div
-            key={produto.id}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="rounded-2xl shadow-md hover:shadow-lg">
-              <CardContent className="flex flex-col items-center p-4">
-                <Image
-                  src={produto.imagem}
-                  alt={produto.nome}
-                  width={160}
-                  height={160}
-                  className="h-40 object-contain mb-4"
-                />
-                <h2 className="text-xl font-semibold mb-2 text-center">{produto.nome}</h2>
-                <p className="text-lg mb-4">{produto.preco}</p>
-                <Button onClick={() => adicionarCarrinho(produto)}>Adicionar ao Carrinho</Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      {carrinho.length > 0 && (
-        <div className="fixed bottom-4 right-4 p-4 bg-gray-800 text-white rounded-2xl shadow-lg">
-          <h2 className="text-lg font-semibold mb-2">Carrinho ({carrinho.length})</h2>
-          <ul>
-            {carrinho.map((item, index) => (
-              <li key={index}>{item.nome}</li>
-            ))}
-          </ul>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
+          <div>
+            <h2 className="text-2xl font-semibold">Produtos de Qualidade</h2>
+            <p>Trabalhamos com os melhores acessórios e eletrônicos do mercado.</p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold">Entrega Rápida</h2>
+            <p>Garantimos agilidade na entrega dos seus pedidos.</p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold">Atendimento Especial</h2>
+            <p>Estamos prontos para atender você com atenção e carinho.</p>
+          </div>
         </div>
-      )}
-    </div>
+
+        <div className="flex flex-wrap justify-center mb-8 gap-4">
+          <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
+            <Button>Instagram</Button>
+          </Link>
+          <Link href="https://wa.me/5511990111822" target="_blank">
+            <Button>WhatsApp</Button>
+          </Link>
+          <input
+            type="text"
+            placeholder="Busque um produto..."
+            className="border p-2 rounded-lg w-full max-w-md text-black"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {produtosFiltrados.map((produto) => (
+            <motion.div
+              key={produto.id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => router.push(`/produto/${produto.id}`)}
+              className="cursor-pointer"
+            >
+              <Card className="rounded-2xl shadow-md hover:shadow-lg">
+                <CardContent className="flex flex-col items-center p-4">
+                  <Image
+                    src={produto.imagem}
+                    alt={produto.nome}
+                    width={160}
+                    height={160}
+                    className="h-40 object-contain mb-4"
+                  />
+                  <h2 className="text-xl font-semibold mb-2 text-center text-black">{produto.nome}</h2>
+                  <p className="text-lg mb-4 text-black">{produto.preco}</p>
+                  <Button onClick={(e) => { e.stopPropagation(); adicionarCarrinho(produto); }}>Adicionar ao Carrinho</Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+        {carrinho.length > 0 && (
+          <div className="fixed bottom-4 right-4 p-4 bg-black text-white rounded-2xl shadow-lg w-64">
+            <h2 className="text-lg font-semibold mb-2">Carrinho ({carrinho.length})</h2>
+            <ul>
+              {carrinho.map((item, index) => (
+                <li key={index} className="flex justify-between items-center mb-2">
+                  <span>{item.nome}</span>
+                  <button
+                    onClick={() => removerDoCarrinho(index)}
+                    className="text-red-400 hover:text-red-600"
+                  >
+                    Remover
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
