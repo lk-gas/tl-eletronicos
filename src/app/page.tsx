@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -56,9 +55,10 @@ export default function Home() {
       </motion.h1>
 
       <div className="flex flex-wrap justify-center mb-8 gap-4">
-        <Input
+        <input
+          type="text"
           placeholder="Busque um produto..."
-          className="max-w-md"
+          className="border p-2 rounded-lg w-full max-w-md"
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
