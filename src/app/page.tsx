@@ -35,7 +35,7 @@ export default function Home() {
     { id: 11, nome: "Capinha iPhone 15", preco: "R$ 50,00", imagem: "/capinha-iphone15.jpeg" },
     { id: 12, nome: "Capinha iPhone 16 Pro Max", preco: "R$ 60,00", imagem: "/capinha-iphone16promax.jpeg" },
     { id: 13, nome: "Carregador iPhone", preco: "R$ 90,00", imagem: "/carregador-iphone.jpeg" },
-    { id: 14, nome: "Carregador Android", preco: "R$ 70,00", imagem: "/carregador-android.jpeg" },
+    { id: 14, nome: "Carregador Android", preco: "R$ 70,00", imagem: "/carregador-android.jpeg" }
   ];
 
   const adicionarCarrinho = (produto: Produto) => {
@@ -58,68 +58,65 @@ export default function Home() {
         <title>TL Eletrônicos</title>
       </Head>
 
-      <div className="min-h-screen bg-black text-white p-6">
-        <motion.h1
+      <div className="min-h-screen bg-gradient-to-b from-black via-black to-blue-900 text-white flex flex-col items-center p-6">
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-6xl font-extrabold text-center mb-8"
+          transition={{ duration: 1 }}
+          className="text-center mt-10"
         >
-          TL Eletrônicos
-        </motion.h1>
+          <h1 className="text-7xl font-light tracking-wide">TL</h1>
+          <h2 className="text-3xl font-semibold tracking-wider mt-2">Eletrônicos</h2>
+          <Link href="#produtos">
+            <Button className="bg-blue-600 hover:bg-blue-700 rounded-2xl px-8 py-3 mt-8">
+              Conheça nossos produtos
+            </Button>
+          </Link>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-12">
-          <div>
-            <h2 className="text-2xl font-semibold">Produtos de Qualidade</h2>
-            <p>Trabalhamos com os melhores acessórios e eletrônicos do mercado.</p>
+        <section id="produtos" className="mt-20 w-full max-w-6xl px-4">
+          <h2 className="text-3xl font-bold mb-10 text-center">Produtos em Destaque</h2>
+
+          <input
+            type="text"
+            placeholder="Busque um produto..."
+            className="border p-2 rounded-lg w-full max-w-md text-black mb-8 block mx-auto"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {produtosFiltrados.map((produto) => (
+              <motion.div
+                key={produto.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => router.push(`/produto/${produto.id}`)}
+                className="cursor-pointer"
+              >
+                <Card className="rounded-2xl shadow-md hover:shadow-lg bg-black border border-white">
+                  <CardContent className="flex flex-col items-center p-4">
+                    <Image
+                      src={produto.imagem}
+                      alt={produto.nome}
+                      width={160}
+                      height={160}
+                      className="h-40 object-contain mb-4"
+                    />
+                    <h2 className="text-xl font-semibold mb-2 text-center">{produto.nome}</h2>
+                    <p className="text-lg mb-4">{produto.preco}</p>
+                    <Button onClick={(e) => { e.stopPropagation(); adicionarCarrinho(produto); }} className="bg-white text-black hover:bg-gray-300">
+                      Adicionar ao Carrinho
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
-          <div>
-            <h2 className="text-2xl font-semibold">Entrega Rápida</h2>
-            <p>Garantimos agilidade na entrega dos seus pedidos.</p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold">Atendimento Especial</h2>
-            <p>Estamos prontos para atender você com atenção e carinho.</p>
-          </div>
-        </div>
+        </section>
 
-        <input
-          type="text"
-          placeholder="Busque um produto..."
-          className="border p-2 rounded-lg w-full max-w-md text-black mb-8 block mx-auto"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {produtosFiltrados.map((produto) => (
-            <motion.div
-              key={produto.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => router.push(`/produto/${produto.id}`)}
-              className="cursor-pointer"
-            >
-              <Card className="rounded-2xl shadow-md hover:shadow-lg bg-black border border-white">
-                <CardContent className="flex flex-col items-center p-4">
-                  <Image
-                    src={produto.imagem}
-                    alt={produto.nome}
-                    width={160}
-                    height={160}
-                    className="h-40 object-contain mb-4"
-                  />
-                  <h2 className="text-xl font-semibold mb-2 text-center">{produto.nome}</h2>
-                  <p className="text-lg mb-4">{produto.preco}</p>
-                  <Button onClick={(e) => { e.stopPropagation(); adicionarCarrinho(produto); }} className="bg-white text-black hover:bg-gray-300">Adicionar ao Carrinho</Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="text-center mt-16">
+        <div className="text-center mt-20">
           <h2 className="text-2xl font-semibold mb-4">Nos siga em nossas redes sociais</h2>
           <div className="flex justify-center gap-6">
             <Link href="https://www.instagram.com/tl_eletronicos_?igsh=cmV6cmhqMTA0eTgy&utm_source=qr" target="_blank">
